@@ -31,6 +31,7 @@ public:
     Trip(int id, string dep, string arr, string dep_time, string arr_time, double length, double cost)
         : id_trip(id), departure_point(dep), arrival_point(arr), departure_time(dep_time),
         arrival_time(arr_time), length_of_trip(length), cost_of_trip(cost) {}
+
     int getId() const { return id_trip; }
     string getDeparturePoint() const { return departure_point; }
     string getArrivalPoint() const { return arrival_point; }
@@ -50,6 +51,7 @@ private:
 public:
     Driver(int id, string first, string last, string s, int exp)
         : id_driver(id), first_name(first), last_name(last), sex(s), experience(exp) {}
+
     int getId() const { return id_driver; }
     string getFirstName() const { return first_name; }
     string getLastName() const { return last_name; }
@@ -60,7 +62,7 @@ public:
 class Car {
 private:
     int id_car;
-    string make;
+    string brand;
     string model;
     int year;
     string color;
@@ -68,11 +70,12 @@ private:
     double car_mileage;
     string car_status;
 public:
-    Car(int id, string mk, string mdl, int yr, string clr, int pass, double mileage, string status)
-        : id_car(id), make(mk), model(mdl), year(yr), color(clr), number_of_passengers(pass),
+    Car(int id, string b, string mdl, int yr, string clr, int pass, double mileage, string status)
+        : id_car(id), brand(b), model(mdl), year(yr), color(clr), number_of_passengers(pass),
         car_mileage(mileage), car_status(status) {}
+
     int getId() const { return id_car; }
-    string getMake() const { return make; }
+    string getBrand() const { return brand; }
     string getModel() const { return model; }
     int getYear() const { return year; }
     string getColor() const { return color; }
@@ -93,6 +96,7 @@ public:
     Race(int id, int trip_id, int dyspatcher_id, int driver_id, int car_id, string status)
         : id_race(id), id_trip(trip_id), id_dyspetcher(patcher_id), id_driver(driver_id),
         id_car(car_id), race_status(status) {}
+
     int getId() const { return id_race; }
     int getTripId() const { return id_trip; }
     int getDyspetcherId() const { return id_dyspetcher; }
@@ -115,6 +119,7 @@ public:
     void addDriver(const Driver& d) { drivers.push_back(d); }
     void addCar(const Car& c) { cars.push_back(c); }
     void addRace(const Race& r) { races.push_back(r); }
+
     // method to get a driver by id
     Driver getDriverById(int id) const {
         for (const Driver& d : drivers) {
@@ -124,6 +129,7 @@ public:
         }
         throw runtime_error("Driver not found");
     }
+
     // method to get a car by id
     Car getCarById(int id) const {
         for (const Car& c : cars) {
@@ -133,6 +139,7 @@ public:
         }
         throw runtime_error("Car not found");
     }
+
     // method to find available cars
     vector<Car> getAvailableCars() const {
         vector<Car> available_cars;
@@ -143,6 +150,7 @@ public:
         }
         return available_cars;
     }
+
     // method to assign a driver and car to a race
     void assignDriverAndCarToRace(int race_id, int driver_id, int car_id) {
         for (Race& r : races) {
@@ -152,6 +160,7 @@ public:
             }
         }
     }
+
     // method for a driver to request a repair
     void requestRepair(int driver_id) {
         for (Driver& d : drivers) {
@@ -161,6 +170,7 @@ public:
             }
         }
     }
+
     // method for a dispatcher to suspend a driver
     void suspendDriver(int driver_id) {
         for (Driver& d : drivers) {
@@ -170,6 +180,7 @@ public:
             }
         }
     }
+
     // method for a driver to update the race status and car mileage
     void updateRaceStatusAndCarMileage(int driver_id, int race_id, string race_status, int car_mileage) {
         for (Race& r : races) {
@@ -190,8 +201,7 @@ public:
     }
 
 
-
 int main()
 {
-    
+    return 0;
 }
