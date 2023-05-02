@@ -5,12 +5,12 @@
 
 using namespace std;
 
-class Pracivnyk {
+class Worker {
 protected:
     string first_name;
     string last_name;
-    string sex;
-    int experience;
+    //string sex;
+    //int experience;
 
 public:
 
@@ -33,44 +33,27 @@ public:
         last_name = new_last_name;
     }
 
-    string get_sex() const {
-        return sex;
-    }
-
-    void set_sex(const string& new_sex) {
-        sex = new_sex;
-    }
-
-    int get_experience() const {
-        return experience;
-    }
-
-    void set_experience(int new_experience) {
-        experience = new_experience;
-    }
-
-
+    Worker(std::string first_n, std::string last_n) :
+    first_name(first_n), last_name(last_n) {}
 };
 
-class Dyspetcher : protected Pracivnyk {
+class Dyspetcher : public Worker{
 private:
     int id_dyspetcher;
-
 public:
-    Dyspetcher(int id, string first, string last) : id_dyspetcher(id), first_name(first), last_name(last) {}
-
+    Dyspetcher(int id_dyspetcher, string first_name, string last_name) : id_dyspetcher(id_dyspetcher), Worker(first_name, last_name) {
+    }
     int getId() const { return id_dyspetcher; }
   
 };
 
-class Driver : protected Pracivnyk {
+class Driver : public Worker {
 private:
     int id_driver;
-
 public:
-    Driver(int id, string first, string last, string s, int exp)
-        : id_driver(id), first_name(first), last_name(last), sex(s), experience(exp) {}
-
+    Driver(int id_driver, string first_name, string last_name)
+        : id_driver(id_driver), Worker(first_name, last_name){
+         }
     int getId() const { return id_driver; }
   
 };
