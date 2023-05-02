@@ -137,8 +137,9 @@ private:
                 std::cout << endl;
             }
         }
-
-     
+        /*
+        Trips
+        */     
         void readTripFromFile(const std::string& filename) {
             std::ifstream file(filename);
             if (!file) {
