@@ -2,87 +2,15 @@
 #include <clocale>
 #include <string>
 #include <vector>
+#include "Pracivnyk.h"
+#include "Car.h"
+#include "Trip.h"
+
+
+
 
 using namespace std;
 
-class Dyspetcher {
-private:
-    int id_dyspetcher;
-    string first_name;
-    string last_name;
-public:
-    Dyspetcher(int id, string first, string last) : id_dyspetcher(id), first_name(first), last_name(last) {}
-
-    int getId() const { return id_dyspetcher; }
-    string getFirstName() const { return first_name; }
-    string getLastName() const { return last_name; }
-};
-
-class Trip {
-private:
-    int id_trip;
-    string departure_point;
-    string arrival_point;
-    string departure_time;
-    string arrival_time;
-    double length_of_trip;
-    double cost_of_trip;
-public:
-    Trip(int id, string dep, string arr, string dep_time, string arr_time, double length, double cost)
-        : id_trip(id), departure_point(dep), arrival_point(arr), departure_time(dep_time),
-        arrival_time(arr_time), length_of_trip(length), cost_of_trip(cost) {}
-
-    int getId() const { return id_trip; }
-    string getDeparturePoint() const { return departure_point; }
-    string getArrivalPoint() const { return arrival_point; }
-    string getDepartureTime() const { return departure_time; }
-    string getArrivalTime() const { return arrival_time; }
-    double getLengthOfTrip() const { return length_of_trip; }
-    double getCostOfTrip() const { return cost_of_trip; }
-};
-
-class Driver {
-private:
-    int id_driver;
-    string first_name;
-    string last_name;
-    string sex;
-    int experience;
-public:
-    Driver(int id, string first, string last, string s, int exp)
-        : id_driver(id), first_name(first), last_name(last), sex(s), experience(exp) {}
-
-    int getId() const { return id_driver; }
-    string getFirstName() const { return first_name; }
-    string getLastName() const { return last_name; }
-    string getSex() const { return sex; }
-    int getExperience() const { return experience; }
-};
-
-class Car {
-private:
-    int id_car;
-    string brand;
-    string model;
-    int year;
-    string color;
-    int number_of_passengers;
-    double car_mileage;
-    string car_status;
-public:
-    Car(int id, string b, string mdl, int yr, string clr, int pass, double mileage, string status)
-        : id_car(id), brand(b), model(mdl), year(yr), color(clr), number_of_passengers(pass),
-        car_mileage(mileage), car_status(status) {}
-
-    int getId() const { return id_car; }
-    string getBrand() const { return brand; }
-    string getModel() const { return model; }
-    int getYear() const { return year; }
-    string getColor() const { return color; }
-    int getNumberOfPassengers() const { return number_of_passengers; }
-    double getCarMileage() const { return car_mileage; }
-    string getCarStatus() const { return car_status; }
-};
 
 class Race {
 private:
@@ -94,7 +22,7 @@ private:
     string race_status;
 public:
     Race(int id, int trip_id, int dyspatcher_id, int driver_id, int car_id, string status)
-        : id_race(id), id_trip(trip_id), id_dyspetcher(patcher_id), id_driver(driver_id),
+        : id_race(id), id_trip(trip_id), id_dyspetcher(dyspatcher_id), id_driver(driver_id),
         id_car(car_id), race_status(status) {}
 
     int getId() const { return id_race; }
@@ -104,7 +32,7 @@ public:
     int getCarId() const { return id_car; }
     string getRaceStatus() const { return race_status; }
 };
-
+/*
 class Autobaza {
 private:
     vector<Dyspetcher> dyspetchers;
@@ -199,7 +127,8 @@ public:
             }
         }
     }
-
+};
+*/
 
 int main()
 {
@@ -207,8 +136,13 @@ int main()
     cout << " Who are you ? : (Dispetch 1 / Driver 2)" << endl;
     cin >> INDENT;
     if (INDENT==1) {
-    
-    
+        cout << "You are dispatch" << endl;
+        Dyspetcher 
+        
+    }
+    else if (INDENT==2) {
+        cout << "You are driver" << endl;
+
     }
 
 
