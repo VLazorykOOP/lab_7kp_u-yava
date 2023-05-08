@@ -14,6 +14,7 @@ private:
     int number_of_passengers;
     double car_mileage;
     string car_status;
+
 public:
     Car(int id, string b, string mdl, int yr, string lcs, int pass, double mileage, string status)
         : id_car(id), brand(b), model(mdl), year(yr), license_plates(lcs), number_of_passengers(pass),car_mileage(mileage), car_status(status) {}

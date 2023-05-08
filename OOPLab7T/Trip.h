@@ -13,6 +13,7 @@ private:
     string arrival_time;
     double length_of_trip;
     double cost_of_trip;
+
 public:
     Trip(int id, string dep, string arr, string dep_time, string arr_time, double length, double cost)
         : id_trip(id), departure_point(dep), arrival_point(arr), departure_time(dep_time),

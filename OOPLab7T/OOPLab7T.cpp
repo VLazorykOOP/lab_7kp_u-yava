@@ -7,11 +7,7 @@
 #include "Car.h"
 #include "Trip.h"
 
-
-
-
 using namespace std;
-
 
 class Race {
 private:
@@ -45,15 +41,15 @@ private:
         /*
         Dyspetchers
         */
-        void readDyspetchersFromFile(const std::string& filename) {
-            std::ifstream file(filename);
+        void readDyspetchersFromFile(const string& filename) {
+            ifstream file(filename);
             if (!file) {
                 cout << "Unable to open file";
             }
 
             int id_dyspetcher;
-            std::string first_name;
-            std::string last_name;
+            string first_name;
+            string last_name;
 
             while (file >> id_dyspetcher >> first_name >> last_name) {
                 dyspetchers.emplace_back(id_dyspetcher, first_name, last_name);
@@ -64,25 +60,25 @@ private:
 
         void showDyspetchers() const {
             for (const auto& dysp : dyspetchers) {
-                std::cout << "Dyspetcher ID: " << dysp.getId() << std::endl;
-                std::cout << "First Name: " << dysp.Worker::get_first_name() << std::endl;
-                std::cout << "Last Name: " << dysp.Worker::get_last_name() << std::endl;
-                std::cout << endl;
+                cout << "Dyspetcher ID: " << dysp.getId() << endl;
+                cout << "First Name: " << dysp.Worker::get_first_name() << endl;
+                cout << "Last Name: " << dysp.Worker::get_last_name() << endl;
+                cout << endl;
             }
         }
 
         /*
         Drivers
         */
-        void readDriversFromFile(const std::string& filename) {
-            std::ifstream file(filename);
+        void readDriversFromFile(const string& filename) {
+            ifstream file(filename);
             if (!file) {
                 cout << "Unable to open file";
             }
             
             int id_driver;
-            std::string first_name;
-            std::string last_name;
+            string first_name;
+            string last_name;
 
             while (file >> id_driver >> first_name >> last_name) {
                 drivers.emplace_back(id_driver, first_name, last_name);
@@ -93,29 +89,30 @@ private:
 
         void showDrivers() const {
             for (const auto& driver : drivers) {
-                std::cout << "Driver ID: " << driver.getId() << std::endl;
-                std::cout << "First Name: " << driver.Worker::get_first_name() << std::endl;
-                std::cout << "Last Name: " << driver.Worker::get_last_name() << std::endl;
-                std::cout << endl;
+                cout << "Driver ID: " << driver.getId() << endl;
+                cout << "First Name: " << driver.Worker::get_first_name() << endl;
+                cout << "Last Name: " << driver.Worker::get_last_name() << endl;
+                cout << endl;
             }
         }
+
         /*
         Cars
        */
-        void readCarsFromFile(const std::string& filename) {
-            std::ifstream file(filename);
+        void readCarsFromFile(const string& filename) {
+            ifstream file(filename);
             if (!file) {
                 cout << "Unable to open file";
             }
 
             int id_car;
-            std::string brand;
-            std::string model;
+            string brand;
+            string model;
             int year;
-            std::string license_plate;
+            string license_plate;
             int number_of_passengers;
             double car_mileage;
-            std::string car_status;
+            string car_status;
 
             while (file >> id_car >> brand >> model >> year >> license_plate >> number_of_passengers >> car_mileage >> car_status) {
                 cars.emplace_back(id_car, brand, model, year, license_plate, number_of_passengers, car_mileage, car_status);
@@ -126,22 +123,23 @@ private:
 
         void showCars() const {
             for (const auto& car : cars) {
-                std::cout << "Car ID: " << car.getId() << std::endl;
-                std::cout << "Brand: " << car.getBrand() << std::endl;
-                std::cout << "Model: " << car.getModel() << std::endl;
-                std::cout << "Year: " << car.getYear() << std::endl;
-                std::cout << "License plates: " << car.getLicensePlates() << std::endl;
-                std::cout << "Number of passengers: " << car.getNumberOfPassengers() << std::endl;
-                std::cout << "Car milege: " << car.getCarMileage() << std::endl;
-                std::cout << "Car status: " << car.getCarStatus() << std::endl;
-                std::cout << endl;
+                cout << "Car ID: " << car.getId() << endl;
+                cout << "Brand: " << car.getBrand() << endl;
+                cout << "Model: " << car.getModel() << endl;
+                cout << "Year: " << car.getYear() << endl;
+                cout << "License plates: " << car.getLicensePlates() << endl;
+                cout << "Number of passengers: " << car.getNumberOfPassengers() << endl;
+                cout << "Car milege: " << car.getCarMileage() << endl;
+                cout << "Car status: " << car.getCarStatus() << endl;
+                cout << endl;
             }
         }
+
         /*
         Trips
         */     
-        void readTripFromFile(const std::string& filename) {
-            std::ifstream file(filename);
+        void readTripFromFile(const string& filename) {
+            ifstream file(filename);
             if (!file) {
                 cout << "Unable to open file";
             }
@@ -168,14 +166,14 @@ private:
               
                 double length_of_trip;
                 double cost_of_trip;
-                std::cout << "Trip ID: " << trip.getId() << std::endl;
-                std::cout << "Departure point: " << trip.getDeparturePoint() << std::endl;
-                std::cout << "Arrival point: " <<trip.getArrivalPoint() << std::endl;
-                std::cout << "Departure time: " << trip.getDepartureTime() << std::endl;
-                std::cout << "Arrival time: " << trip.getArrivalTime() << std::endl;
-                std::cout << "Length of trip: " << trip.getLengthOfTrip() << std::endl;
-                std::cout << "Cost of trip: " << trip.getCostOfTrip() << std::endl;
-                std::cout << endl;
+                cout << "Trip ID: " << trip.getId() << endl;
+                cout << "Departure point: " << trip.getDeparturePoint() << endl;
+                cout << "Arrival point: " <<trip.getArrivalPoint() << endl;
+                cout << "Departure time: " << trip.getDepartureTime() << endl;
+                cout << "Arrival time: " << trip.getArrivalTime() << endl;
+                cout << "Length of trip: " << trip.getLengthOfTrip() << endl;
+                cout << "Cost of trip: " << trip.getCostOfTrip() << endl;
+                cout << endl;
             }
         }
     };
@@ -203,9 +201,9 @@ show
 information from files
 */
         Autobaza autobaza;
-        std::string dyspethcers_file = "..\\OOPLab7T\\Database\\dyspetchers.txt";
-        std::string drivers_file = "..\\OOPLab7T\\Database\\drivers.txt";
-        std::string cars_file = "..\\OOPLab7T\\Database\\cars.txt";
+        string dyspethcers_file = "..\\OOPLab7T\\Database\\dyspetchers.txt";
+        string drivers_file = "..\\OOPLab7T\\Database\\drivers.txt";
+        string cars_file = "..\\OOPLab7T\\Database\\cars.txt";
         string trips_file = "..\\OOPLab7T\\Database\\trips.txt";
         try {
             autobaza.readDyspetchersFromFile(dyspethcers_file);
@@ -213,17 +211,20 @@ information from files
             autobaza.readCarsFromFile(cars_file);
             autobaza.readTripFromFile(trips_file);
         }
-        catch (std::runtime_error& e) {
-            std::cout << e.what() << std::endl;
+        catch (runtime_error& e) {
+            cout << e.what() << endl;
         }
         cout << "\nDYSPETCHERS:" << endl;
         autobaza.showDyspetchers();
+
         cout << "------------------------------\n";
         cout << "\nDRIVER:" << endl;
         autobaza.showDrivers();
+
         cout << "------------------------------\n";
         cout << "\nCARS:" << endl;
         autobaza.showCars();
+
         cout << "------------------------------\n";
         cout << "\nTrips:" << endl;
         autobaza.showTrips();
