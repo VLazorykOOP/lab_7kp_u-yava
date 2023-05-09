@@ -205,8 +205,27 @@ int main()
         }
 
         cout << "\nYou are dispatcher" << endl;
-        cout << login << " " << password << endl;
+        break;
+    }
 
+    case 2: {
+        string login_driver = "dispatcher1";
+        string password_driver = "password1";
+
+        string login = "";
+        string password = "";
+
+        while (login_driver != login && password_disp != password)
+        {
+            cout << "\nDriver login: " << endl;
+            cout << "Enter your name: ";
+            cin >> login;
+            cout << "Enter your password: ";
+            cin >> password;
+        }
+
+        cout << "\nYou are driver" << endl;
+        break;
     }
 
 
