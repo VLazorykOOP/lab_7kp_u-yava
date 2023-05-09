@@ -26,4 +26,7 @@ public:
     string getArrivalTime() const { return arrival_time; }
     double getLengthOfTrip() const { return length_of_trip; }
     double getCostOfTrip() const { return cost_of_trip; }
+    void showTrip() {
+        cout << id_trip << " " << departure_point << " " << arrival_point << " " << departure_time << " " << arrival_time << " " << length_of_trip;
+    }
 };

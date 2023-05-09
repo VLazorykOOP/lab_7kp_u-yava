@@ -36,16 +36,24 @@ public:
     Dyspetcher(int id_dyspetcher, string first_name, string last_name) 
         : id_dyspetcher(id_dyspetcher), Worker(first_name, last_name) {}
 
+    void showDyspether() {
+        cout << id_dyspetcher << " " << first_name << " " << last_name;
+    }
     int getId() const { return id_dyspetcher; }
 };
 
 class Driver : public Worker {
 private:
     int id_driver;
+    string password;
 
 public:
-    Driver(int id_driver, string first_name, string last_name)
-        : id_driver(id_driver), Worker(first_name, last_name){}
+    Driver(int id_driver, string first_name, string last_name, string password)
+        : id_driver(id_driver), Worker(first_name, last_name), password(password) {}
 
+    void showDriver() {
+        cout << id_driver << " " << first_name << " " << last_name;
+    }
     int getId() const { return id_driver; }
+    string get_password() const { return password; }
 };

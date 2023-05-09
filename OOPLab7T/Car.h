@@ -27,4 +27,7 @@ public:
     int getNumberOfPassengers() const { return number_of_passengers; }
     double getCarMileage() const { return car_mileage; }
     string getCarStatus() const { return car_status; }
+    void showCar() {
+        cout << id_car << " " << brand << " " << model << " " << license_plates << " " << number_of_passengers << " " << car_status;
+    }
 };
