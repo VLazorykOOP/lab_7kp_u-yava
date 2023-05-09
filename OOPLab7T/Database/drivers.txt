@@ -1,2 +1,2 @@
-1 Igor Pit
-2 Mykola Rusnak
+1 Igor Pit pass1
+2 Mykola Pet pass2

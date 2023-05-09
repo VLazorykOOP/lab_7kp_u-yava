@@ -182,25 +182,42 @@ private:
 
 int main()
 {
-    //int  INDENT;
-    //cout << " Who are you ? : (Dispetch 1 / Driver 2)" << endl;
-    //cin >> INDENT;
-    //if (INDENT==1) {
-    //    cout << "You are dispatch" << endl;
-    //    Dyspetcher 
-    //    
-    //}
-    //else if (INDENT==2) {
-    //    cout << "You are driver" << endl;
+    int  INDENT;
+    cout << "Select your indentity: " << endl;
+    cout << "1. Dispather\n" << "2. Driver" << endl;
+    cin >> INDENT;
 
-    //}
+    switch (INDENT) {
+    case 1: 
+        string login_disp = "dispatcher1";
+        string password_disp = "password1";
+
+        string login = "";
+        string password = "";
+        
+        while (login_disp != login && password_disp != password)
+        {
+            cout << "\nDispatcher login: " << endl;
+            cout << "Enter your name: ";
+            cin >> login;
+            cout << "Enter your password: ";
+            cin >> password;
+        }
+
+        cout << "\nYou are dispatcher" << endl;
+        cout << login << " " << password << endl;
+
+    }
+
 
 /*
 read
 show
 information from files
 */
-        Autobaza autobaza;
+
+
+        /*Autobaza autobaza;
         string dyspethcers_file = "..\\OOPLab7T\\Database\\dyspetchers.txt";
         string drivers_file = "..\\OOPLab7T\\Database\\drivers.txt";
         string cars_file = "..\\OOPLab7T\\Database\\cars.txt";
@@ -227,7 +244,7 @@ information from files
 
         cout << "------------------------------\n";
         cout << "\nTrips:" << endl;
-        autobaza.showTrips();
+        autobaza.showTrips();*/
 
     return 0;
 }
