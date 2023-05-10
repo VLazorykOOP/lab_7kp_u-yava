@@ -8,6 +8,7 @@
 #include "Trip.h"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 class Race {
@@ -34,6 +35,13 @@ public:
         outputFile << id_race << " " << id_trip << " " << id_driver << " " << id_car << " " << race_status << endl;
         outputFile.close();
     }
+    std::string toString() const {
+        // Convert the race information to a string representation
+        std::string raceString = "Race ID: " + std::to_string(id_race) + ", Driver ID: " + std::to_string(id_driver) + ", Status: " + race_status;
+        return raceString;
+    }
+
+ 
 };
 
 class Autobaza {
@@ -203,7 +211,119 @@ private:
         int getCarsSize() {
             return cars.size();
         }
+
+        void showRace(const std::string& race) {
+            std::istringstream iss(race);
+            std::string column;
+            bool firstColumn = true;
+
+            while (iss >> column) {
+                std::cout << column;
+
+                // Add additional whitespaces after each column except the last one
+                if (iss.peek() != EOF) {
+                    std::cout << "      | ";  // Adjust the number of tabs as needed
+                }
+
+                firstColumn = false;
+            }
+
+            std::cout << std::endl;
+        }
+
+        void filterRacesByDriverID(const std::vector<std::string>& races, int driverId) {
+            for (const auto& race : races) {
+                std::istringstream iss(race);
+                std::string column;
+                bool hasDriverID = false;
+
+                for (int i = 0; i < 3; ++i) {
+                    if (iss >> column) {
+                        if (i == 2) {
+                            // Check if the third column is equal to the target driver ID
+                            if (!column.empty() && std::stoi(column) == driverId) {
+                                hasDriverID = true;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        // Handle error or invalid format
+                        std::cout << "Error reading columns." << std::endl;
+                        break;
+                    }
+                }
+
+                if (hasDriverID) {
+                    showRace(race);
+                }
+            }
+        }
+
+       
+
 };
+
+
+std::vector<std::string> readFileData(const std::string& filename) {
+    std::vector<std::string> data;
+    std::ifstream inputFile(filename);
+
+    if (inputFile.is_open()) {
+        std::string line;
+        while (std::getline(inputFile, line)) {
+            data.push_back(line);
+        }
+
+        inputFile.close();
+    }
+    else {
+        std::cout << "Failed to open the file." << std::endl;
+    }
+
+    return data;
+}
+
+
+void deleteRaceFromFile(const std::string& filename, int raceId) {
+    std::ifstream inputFile(filename);
+    std::vector<std::string> racesFromFile;
+
+    if (inputFile.is_open()) {
+        std::string race;
+        while (std::getline(inputFile, race)) {
+            racesFromFile.push_back(race);
+        }
+        inputFile.close();
+    }
+    else {
+        std::cout << "Failed to open the file." << std::endl;
+        return;
+    }
+
+    std::ofstream outputFile(filename, std::ios::out);
+    if (outputFile.is_open()) {
+        for (const auto& race : racesFromFile) {
+            std::istringstream iss(race);
+            std::string column;
+            int currentRaceId = 0;
+            if (iss >> column) {
+                currentRaceId = std::stoi(column);
+            }
+            if (currentRaceId != raceId) {
+                outputFile << race << std::endl;
+            }
+        }
+        outputFile.close();
+    }
+    else {
+        std::cout << "Failed to open the file for writing." << std::endl;
+    }
+}
+
+
+
+
 
 
 int main()
@@ -291,32 +411,65 @@ int main()
              count_of_cars ++;
              races.push_back(Race(id_race, trip_id_trip, trip_id_driver, trip_id_car, status));
              races.back().writeToFile();
+
          }
          break;
         }
 
         case 2: {
-         string login_driver = "";
-         string password_driver = "";
+         string login_driver = "Mykola";
+         string password_driver = "pass2";
          bool login_successful = false;
+         int driverId = 0;
          while (!login_successful)
          {
             cout << "\nDriver login: " << endl;
-            cout << "Enter your name: ";
-            cin >> login_driver;
-            cout << "Enter your password: ";
-            cin >> password_driver;
+            //cout << "Enter your name: ";
+            //cin >> login_driver;
+            //cout << "Enter your password: ";
+            //cin >> password_driver;
 
             for (const auto& driver : autobaza.get_drivers()) {
                 if (driver.get_first_name() == login_driver && driver.get_password() == password_driver) {
-                    cout << "\nYou are driver" << endl;
                     login_successful = true;
+                    driverId = driver.getId();
+                    cout << "\nYou are "<<driverId <<" driver" << endl;
                     break;
                 }
             }
             if (!login_successful) {
                 cout << "\nInvalid login or password. Please try again.\n";
             }
+         }
+         std::string filename = "C:\\oop\\lab_7kp_u-yava.git\\OOPLab7T\\Database\\races.txt";
+         std::vector<std::string> racesFromFile = readFileData(filename);
+         std::cout << "Your races:\n";
+         std::cout << "\nraceID  tripID   driverID  carID    raceStatus\n";
+         autobaza.filterRacesByDriverID(racesFromFile, driverId);
+         int raceIdDelete = 0;
+
+         /*
+         delete race
+         */
+         char done;
+         while (true) {
+             std::cout << "Have you done the race? (Y/N): ";
+             cin >> done;
+             if (done == 'Y' || done == 'y') {
+                 int raceIdDelete;
+                 cout << "Enter the race ID you want to delete: ";
+                 cin >> raceIdDelete;
+                 deleteRaceFromFile(filename, raceIdDelete);
+
+                 racesFromFile = readFileData(filename);
+                 autobaza.filterRacesByDriverID(racesFromFile, driverId);
+             }
+             else if (done == 'N' || done == 'n') {
+                 break;
+             }
+             else {
+                 cout << "Invalid input. Please enter Y or N." << endl;
+             }
          }
          break;
         }
