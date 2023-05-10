@@ -471,6 +471,14 @@ int main()
                  cout << "Invalid input. Please enter Y or N." << endl;
              }
          }
+         /*
+         repair bus request
+         */
+         cout<<"What bus to repair?"
+         int busIdRepair;
+         cin >> busIdRepair;
+
+         //треба знайти у фалі cars.txt рядок з busIdRepair у першій колонці і змінити OK у останній колонці на Repair
          break;
         }
     }
