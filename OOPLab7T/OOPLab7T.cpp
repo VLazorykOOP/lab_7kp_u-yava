@@ -180,9 +180,7 @@ private:
         void addTrip(const Trip& trip) { trips.push_back(trip); }
 
         void showTrips() const {
-            for (const auto& trip : trips) {
-                
-              
+            for (const auto& trip : trips) {           
                 double length_of_trip;
                 double cost_of_trip;
                 cout << "Trip ID: " << trip.getId() << endl;
@@ -260,10 +258,82 @@ private:
             }
         }
 
-       
+        void showCar(const std::string& car) {
+            std::istringstream iss(car);
+            std::string column;
+            bool firstColumn = true;
+
+            while (iss >> column) {
+                std::cout << column;
+
+                // Add additional whitespaces after each column except the last one
+                if (iss.peek() != EOF) {
+                    std::cout << "      | ";  // Adjust the number of tabs as needed
+                }
+
+                firstColumn = false;
+            }
+
+            std::cout << std::endl;
+        }
+             
+        void filterCarsByCarID(std::vector<std::string>& cars, int carId) {
+            bool carIdFound = false;
+
+            for (auto& car : cars) {
+                std::istringstream iss(car);
+                std::string column;
+                bool hasCarID = false;
+
+                for (int i = 0; i < 3; ++i) {
+                    if (iss >> column) {
+                        if (i == 0) {
+                            // Check if the third column is equal to the target driver ID
+                            if (!column.empty() && std::stoi(column) == carId) {
+                                hasCarID = true;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        // Handle error or invalid format
+                        throw std::invalid_argument("Error reading columns.");
+                    }
+                }
+
+                if (hasCarID) {
+                    // Update the status of the car to "REPAIR"
+                    std::string updatedCar = car;
+                    size_t pos = updatedCar.rfind(' ');
+                    if (pos != std::string::npos) {
+                        updatedCar.replace(pos + 1, std::string::npos, "REPAIR");
+                    }
+                    car = updatedCar;
+
+                    carIdFound = true;
+                    break;
+                }
+            }
+
+            if (!carIdFound) {
+                throw std::invalid_argument("Car ID not found. Please try again.");
+            }
+        }
+
+        void writeFileData(const std::string& filename, const std::vector<std::string>& data) {
+            std::ofstream outFile(filename);
+            if (!outFile) {
+                throw std::runtime_error("Failed to open file for writing: " + filename);
+            }
+
+            for (const auto& line : data) {
+                outFile << line << "\n";
+            }
+
+            outFile.close();
+        } 
 
 };
-
 
 std::vector<std::string> readFileData(const std::string& filename) {
     std::vector<std::string> data;
@@ -283,7 +353,6 @@ std::vector<std::string> readFileData(const std::string& filename) {
 
     return data;
 }
-
 
 void deleteRaceFromFile(const std::string& filename, int raceId) {
     std::ifstream inputFile(filename);
@@ -321,11 +390,6 @@ void deleteRaceFromFile(const std::string& filename, int raceId) {
     }
 }
 
-
-
-
-
-
 int main()
 {
     Autobaza autobaza;
@@ -343,21 +407,7 @@ int main()
     catch (runtime_error& e) {
         cout << e.what() << endl;
     }
-    /*  cout << "\nDYSPETCHERS:" << endl;
-      autobaza.showDyspetchers();
-
-      cout << "------------------------------\n";
-      cout << "\nDRIVER:" << endl;
-      autobaza.showDrivers();
-
-      cout << "------------------------------\n";
-      cout << "\nCARS:" << endl;
-      autobaza.showCars();
-
-      cout << "------------------------------\n";
-      cout << "\nTrips:" << endl;
-      autobaza.showTrips();*/
-
+   
     int  INDENT;
     cout << "Select your indentity: " << endl;
     cout << "1. Dispather\n" << "2. Driver" << endl;
@@ -379,12 +429,10 @@ int main()
          }
          cout << "\n Hello dispatcher" << endl;
          int count_of_trips = 0;
-         int count_of_drivers = 0;
-         int count_of_cars = 0;
          int id_race = 0;
          string status = "Active";
-         while (count_of_cars < autobaza.getCarsSize() && count_of_drivers < autobaza.getDriversSize() && count_of_cars < autobaza.getCarsSize()) {
-             cout << "Create trip:\n";
+         while (count_of_trips < autobaza.getTripsSize()) {
+             cout << "*********Create race:*********\n";
              int trip_id_driver = 0;
              int trip_id_car = 0;
              int trip_id_trip = 0;
@@ -402,13 +450,11 @@ int main()
 
              cout << "------------------------------\n";
              cout << "\nTrips:" << endl;
-             cout << "Select id trip:";
              autobaza.showTrips();
+             cout << "Select id trip:";
              cin >> trip_id_trip;
              id_race ++;
              count_of_trips ++;
-             count_of_drivers ++;
-             count_of_cars ++;
              races.push_back(Race(id_race, trip_id_trip, trip_id_driver, trip_id_car, status));
              races.back().writeToFile();
 
@@ -417,17 +463,17 @@ int main()
         }
 
         case 2: {
-         string login_driver = "Mykola";
-         string password_driver = "pass2";
+         string login_driver = "";
+         string password_driver = "";
          bool login_successful = false;
          int driverId = 0;
          while (!login_successful)
          {
             cout << "\nDriver login: " << endl;
-            //cout << "Enter your name: ";
-            //cin >> login_driver;
-            //cout << "Enter your password: ";
-            //cin >> password_driver;
+            cout << "Enter your name: ";
+            cin >> login_driver;
+            cout << "Enter your password: ";
+            cin >> password_driver;
 
             for (const auto& driver : autobaza.get_drivers()) {
                 if (driver.get_first_name() == login_driver && driver.get_password() == password_driver) {
@@ -474,11 +520,43 @@ int main()
          /*
          repair bus request
          */
-         cout<<"What bus to repair?"
-         int busIdRepair;
-         cin >> busIdRepair;
+         char repair;
+         while (true) {
+             std::cout << "Do you want to repair bus? (Y/N): ";
+             cin >> repair;
+             if (repair == 'Y' || repair == 'y') {
+                 bool carIdFound = false;
+                 int busIdRepair;
+                 std::string fileCars = "C:\\oop\\lab_7kp_u-yava.git\\OOPLab7T\\Database\\cars.txt";
+                 std::vector<std::string> CarsFromFile = readFileData(fileCars);
 
-         //треба знайти у фалі cars.txt рядок з busIdRepair у першій колонці і змінити OK у останній колонці на Repair
+                 while (!carIdFound) {
+                     cout << "What bus to repair? ";
+                     cin >> busIdRepair;
+
+                     try {
+                         autobaza.filterCarsByCarID(CarsFromFile, busIdRepair);
+                         carIdFound = true;  // Car ID found, exit the loop
+                         cout << "Bus # " << busIdRepair << " was sent to repair\n";
+                     }
+                     catch (const std::invalid_argument& e) {
+                         std::cout << "Error: " << e.what() << std::endl;
+                         // Handle the error or prompt the user to enter the car ID again
+                     }
+                 }
+
+                 // Write the updated car data back to the file
+                 autobaza.writeFileData(fileCars, CarsFromFile);
+             }
+             else if (repair == 'N' || repair == 'n') {
+                 break;
+             }
+             else {
+                 cout << "Invalid input. Please enter Y or N." << endl;
+             }
+         }
+
+      
          break;
         }
     }

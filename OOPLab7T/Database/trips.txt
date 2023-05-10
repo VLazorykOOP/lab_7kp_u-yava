@@ -1,3 +1,6 @@
 1 dep_point1 arr_point1 9:00 10:00 20 10
 2 dep_point2 arr_point2 10:30 11:00 15 10
 3 dep_point3 arr_point3 12:10 13:00 17 10
+4 dep_point4 arr_point4 13:10 14:00 18 10
+5 dep_point5 arr_point5 13:20 15:00 9 10
+6 dep_point6 arr_point6 14:10 15:00 17 10

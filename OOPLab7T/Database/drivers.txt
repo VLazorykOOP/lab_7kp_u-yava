@@ -1,2 +1,3 @@
-1 Igor Pit pass1
-2 Mykola Pet pass2
+1 n1 f1 p1
+2 n2 f2 p2
+3 n3 f3 p3
