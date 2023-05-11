@@ -419,7 +419,7 @@ int main()
          string password_disp = "p1";
          string login = "";
          string password = "";
-         while (login_disp != login && password_disp != password)
+         while (login_disp != login || password_disp != password)
          {
             cout << "\nDispatcher login: " << endl;
             cout << "Enter your name: ";
